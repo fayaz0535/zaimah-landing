@@ -45,6 +45,8 @@ export default function Hero() {
         flexDirection: "column",
         justifyContent: "center",
         background: "#FFFFFF",
+        paddingTop: 0,
+        marginTop: 0,
       }}
     >
       {/* Node network canvas — right 65% only */}
@@ -83,7 +85,7 @@ export default function Hero() {
         <motion.h1
           variants={itemVariants}
           style={{
-            fontSize: "clamp(36px, 4.5vw, 72px)",
+            fontSize: "clamp(32px, 3.8vw, 64px)",
             fontWeight: 700,
             lineHeight: 1.1,
             letterSpacing: "-0.02em",
@@ -91,8 +93,17 @@ export default function Hero() {
             marginBottom: 20,
           }}
         >
-          <span style={{ display: "block" }}>
-            We Build <span className="gradient-text">Intelligent</span>
+          <span style={{ display: "block", whiteSpace: "nowrap" }}>
+            We Build{" "}
+            <span
+              style={{
+                background: "linear-gradient(90deg, #5B5BF6, #00C9A7)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Intelligent
+            </span>
           </span>
           <span style={{ display: "block" }}>Technology</span>
         </motion.h1>
