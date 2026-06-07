@@ -11,10 +11,10 @@ interface Node {
   color: string;
 }
 
-const NODE_COUNT = 26;
-const MAX_DIST = 130;
+const NODE_COUNT = 42;
+const MAX_DIST = 110;
 const MAX_VEL = 0.3;
-const RIGHT_BOUNDARY = 0.42; // nodes only spawn in right 58%
+const RIGHT_BOUNDARY = 0.38; // nodes only spawn in right 62%
 
 function makeNode(canvasWidth: number, canvasHeight: number): Node {
   const xMin = canvasWidth * RIGHT_BOUNDARY;

@@ -43,13 +43,13 @@ export default function Hero() {
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
-        background: "var(--bg-surface)",
+        background: "#FFFFFF",
       }}
     >
-      {/* Node network canvas — right 58% only */}
+      {/* Node network canvas — right 62% only */}
       <NodeNetwork />
 
-      {/* Content */}
+      {/* Content — vertically centered, left-aligned */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -57,11 +57,10 @@ export default function Hero() {
         style={{
           position: "relative",
           zIndex: 2,
-          maxWidth: 480,
-          paddingLeft: "clamp(24px, 6vw, 80px)",
+          maxWidth: 520,
+          width: "100%",
+          paddingLeft: "clamp(28px, 6vw, 80px)",
           paddingRight: 24,
-          paddingTop: 100,
-          paddingBottom: 60,
         }}
       >
         {/* Eyebrow */}
@@ -83,13 +82,13 @@ export default function Hero() {
         <motion.h1
           variants={itemVariants}
           style={{
+            fontSize: "clamp(42px, 5vw, 68px)",
             fontWeight: 700,
             lineHeight: 1.1,
             letterSpacing: "-0.02em",
             color: "var(--text-primary)",
             marginBottom: 20,
           }}
-          className="text-[32px] md:text-[42px] lg:text-[56px]"
         >
           We Build{" "}
           <span className="gradient-text">Intelligent</span>
