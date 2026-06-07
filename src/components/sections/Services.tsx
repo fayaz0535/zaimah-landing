@@ -112,7 +112,8 @@ export default function Services() {
       aria-label="Our services"
       style={{
         background: "var(--bg-page)",
-        padding: "80px 0",
+        padding: "96px 0 80px",
+        borderTop: "1px solid var(--border-col)",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>

@@ -54,7 +54,7 @@ export default function Navbar() {
           position: "fixed",
           top: 0, left: 0, right: 0,
           zIndex: 100,
-          height: 58,
+          height: 68,
           background: navBg,
           backdropFilter: scrolled ? "blur(12px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
@@ -92,7 +92,7 @@ export default function Navbar() {
             <div style={{ lineHeight: 1 }}>
               <span
                 style={{
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: 700,
                   letterSpacing: "0.01em",
                   color: "var(--text-primary)",
@@ -101,7 +101,7 @@ export default function Navbar() {
                 Z
                 <span
                   className="gradient-text"
-                  style={{ fontWeight: 700, fontSize: 16 }}
+                  style={{ fontWeight: 700, fontSize: 18 }}
                 >
                   AI
                 </span>
@@ -110,7 +110,7 @@ export default function Navbar() {
             </div>
             <div
               style={{
-                fontSize: 9,
+                fontSize: 8,
                 fontWeight: 500,
                 letterSpacing: "0.18em",
                 color: "var(--text-muted)",
@@ -135,7 +135,7 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     style={{
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 500,
                       textDecoration: "none",
                       color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
@@ -153,7 +153,7 @@ export default function Navbar() {
                           position: "absolute",
                           bottom: -2, left: 0, right: 0,
                           height: 2,
-                          background: "linear-gradient(90deg, #5B5BF6, #00C9A7)",
+                          background: "linear-gradient(90deg, rgba(91,91,246,0.5), rgba(0,201,167,0.5))",
                           borderRadius: 1,
                         }}
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -267,7 +267,7 @@ export default function Navbar() {
               transition={{ duration: 0.22, ease: "easeOut" }}
               style={{
                 position: "fixed",
-                top: 58, left: 0, right: 0,
+                top: 68, left: 0, right: 0,
                 zIndex: 99,
                 background: "var(--bg-surface)",
                 borderBottom: "1px solid var(--border-col)",

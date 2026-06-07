@@ -11,10 +11,17 @@ interface Node {
   color: string;
 }
 
-const NODE_COUNT = 42;
+const NODE_COUNT = 55;
 const MAX_DIST = 110;
 const MAX_VEL = 0.3;
-const RIGHT_BOUNDARY = 0.38; // nodes only spawn in right 62%
+const RIGHT_BOUNDARY = 0.35; // nodes use 65% of canvas
+
+function pickRadius(): number {
+  const roll = Math.random();
+  if (roll < 0.30) return 1.5 + Math.random() * 1.0;        // small  30%: 1.5–2.5
+  if (roll < 0.80) return 3.0 + Math.random() * 2.0;        // medium 50%: 3–5
+  return 6.0 + Math.random() * 4.0;                          // large  20%: 6–10
+}
 
 function makeNode(canvasWidth: number, canvasHeight: number): Node {
   const xMin = canvasWidth * RIGHT_BOUNDARY;
@@ -23,7 +30,7 @@ function makeNode(canvasWidth: number, canvasHeight: number): Node {
     y: Math.random() * canvasHeight,
     vx: (Math.random() - 0.5) * MAX_VEL * 2,
     vy: (Math.random() - 0.5) * MAX_VEL * 2,
-    r: 1.5 + Math.random() * 2.5,
+    r: pickRadius(),
     color: Math.random() > 0.5 ? "#5B5BF6" : "#00C9A7",
   };
 }
@@ -59,8 +66,8 @@ export default function NodeNetwork() {
     function draw() {
       if (!ctx || !canvas) return;
       const isDark = document.documentElement.classList.contains("dark");
-      const nodeAlpha = isDark ? 0.73 : 0.4;
-      const lineAlphaMax = isDark ? 0.22 : 0.12;
+      const nodeAlpha = isDark ? 0.73 : 0.45;
+      const lineAlphaMax = isDark ? 0.28 : 0.18;
 
       ctx.clearRect(0, 0, width, height);
       const nodes = nodesRef.current;
