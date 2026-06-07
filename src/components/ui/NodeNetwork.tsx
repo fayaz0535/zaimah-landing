@@ -11,15 +11,15 @@ interface Node {
   color: string;
 }
 
-const NODE_COUNT = 44;
+const NODE_COUNT = 58;
 const MAX_DIST   = 130;
 const MAX_VEL    = 0.2;
 
 function pickRadius(): number {
   const roll = Math.random();
-  if (roll < 0.45) return 0.8 + Math.random() * 0.9;   // tiny  45%: 0.8–1.7
-  if (roll < 0.82) return 1.8 + Math.random() * 1.4;   // small 37%: 1.8–3.2
-  return 3.4 + Math.random() * 2.0;                      // accent 18%: 3.4–5.4
+  if (roll < 0.45) return 1.2 + Math.random() * 1.0;   // tiny  45%: 1.2–2.2
+  if (roll < 0.82) return 2.5 + Math.random() * 1.7;   // small 37%: 2.5–4.2
+  return 4.5 + Math.random() * 2.5;                      // accent 18%: 4.5–7.0
 }
 
 function makeNode(w: number, maxY: number): Node {

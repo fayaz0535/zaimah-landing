@@ -4,42 +4,63 @@ import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { useTheme } from "@/components/ui/ThemeProvider";
-import { NAV_LINKS } from "@/lib/constants";
+
+// All sections to check for scroll-based active detection (including process which has no nav link)
+const SECTION_IDS = ["services", "products", "process", "about", "contact"];
+const NAVBAR_H    = 80;
+const SCROLL_OFFS = 100;
+
+// Nav items shown in the header and mobile drawer
+const NAV_ITEMS = [
+  { id: "home",     label: "Home",     href: "#",         isHome: true  },
+  { id: "services", label: "Services", href: "#services", isHome: false },
+  { id: "products", label: "Products", href: "#products", isHome: false },
+  { id: "about",    label: "About",    href: "#about",    isHome: false },
+  { id: "contact",  label: "Contact",  href: "#contact",  isHome: false },
+] as const;
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const [scrolled, setScrolled]       = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("");
-  const [mobileOpen, setMobileOpen]   = useState(false);
+  const [scrolled, setScrolled]           = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
+  const [mobileOpen, setMobileOpen]       = useState(false);
 
+  // Single scroll listener handles glassmorphism + active section
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    function detect() {
+      const y = window.scrollY;
+      setScrolled(y > 80);
+
+      if (y < 100) {
+        setActiveSection("home");
+        return;
+      }
+
+      // Walk sections; active = last one whose adjusted top is ≤ scrollY
+      let active = "";
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.offsetTop - NAVBAR_H - SCROLL_OFFS <= y) {
+          active = id;
+        }
+      }
+      setActiveSection(active || "home");
+    }
+
+    detect(); // initialise on mount
+    window.addEventListener("scroll", detect, { passive: true });
+    return () => window.removeEventListener("scroll", detect);
   }, []);
 
-  useEffect(() => {
-    const ids = NAV_LINKS.map((l) => l.href.replace("#", ""));
-    const observers: IntersectionObserver[] = [];
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.35 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-    return () => observers.forEach((o) => o.disconnect());
+  const closeMobile   = useCallback(() => setMobileOpen(false), []);
+  const scrollToTop   = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
-
-  const closeMobile = useCallback(() => setMobileOpen(false), []);
 
   const navBg = scrolled
-    ? theme === "dark"
-      ? "rgba(13,13,26,0.85)"
-      : "rgba(255,255,255,0.85)"
+    ? theme === "dark" ? "rgba(13,13,26,0.85)" : "rgba(255,255,255,0.85)"
     : "var(--bg-surface)";
 
   return (
@@ -50,7 +71,7 @@ export default function Navbar() {
           position: "sticky",
           top: 0, left: 0, right: 0,
           zIndex: 50,
-          height: 80,
+          height: NAVBAR_H,
           background: navBg,
           backdropFilter: scrolled ? "blur(12px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
@@ -103,32 +124,24 @@ export default function Navbar() {
                 MAH
               </span>
             </div>
-            <div
-              style={{
-                fontSize: 8.5,
-                fontWeight: 500,
-                letterSpacing: "0.24em",
-                color: "var(--text-muted)",
-                marginTop: 2,
-              }}
-            >
+            <div style={{ fontSize: 8.5, fontWeight: 500, letterSpacing: "0.24em", color: "var(--text-muted)", marginTop: 2 }}>
               T E C H N O L O G I E S
             </div>
           </a>
 
-          {/* Center nav links */}
+          {/* Center nav links — desktop */}
           <ul
             className="hidden md:flex"
-            style={{ listStyle: "none", gap: 36, alignItems: "center" }}
+            style={{ listStyle: "none", gap: 32, alignItems: "center" }}
             role="list"
           >
-            {NAV_LINKS.map((link) => {
-              const id       = link.href.replace("#", "");
-              const isActive = activeSection === id;
+            {NAV_ITEMS.map((link) => {
+              const isActive = activeSection === link.id;
               return (
-                <li key={link.href} style={{ position: "relative" }}>
+                <li key={link.id} style={{ position: "relative" }}>
                   <a
                     href={link.href}
+                    onClick={link.isHome ? scrollToTop : undefined}
                     style={{
                       fontSize: 14,
                       fontWeight: isActive ? 600 : 500,
@@ -162,17 +175,14 @@ export default function Navbar() {
           </ul>
 
           {/* Right actions */}
-          <div
-            style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "flex-end" }}
-          >
+          <div style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "flex-end" }}>
             {/* Theme toggle — desktop */}
             <button
               onClick={toggleTheme}
               aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               className="hidden md:flex"
               style={{
-                width: 36,
-                height: 36,
+                width: 36, height: 36,
                 borderRadius: "50%",
                 border: "1px solid var(--border-col)",
                 background: "transparent",
@@ -222,13 +232,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen((o) => !o)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
-              style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                color: "var(--text-primary)",
-                padding: 4,
-              }}
+              style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--text-primary)", padding: 4 }}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -258,7 +262,7 @@ export default function Navbar() {
               transition={{ duration: 0.22 }}
               style={{
                 position: "fixed",
-                top: 80, left: 0, right: 0,
+                top: NAVBAR_H, left: 0, right: 0,
                 zIndex: 49,
                 background: "var(--bg-surface)",
                 borderBottom: "1px solid var(--border-col)",
@@ -268,11 +272,17 @@ export default function Navbar() {
               aria-label="Mobile navigation"
             >
               <ul style={{ listStyle: "none", marginBottom: 20 }}>
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href} style={{ borderBottom: "1px solid var(--border-col)" }}>
+                {NAV_ITEMS.map((link) => (
+                  <li key={link.id} style={{ borderBottom: "1px solid var(--border-col)" }}>
                     <a
                       href={link.href}
-                      onClick={closeMobile}
+                      onClick={(e) => {
+                        if (link.isHome) {
+                          e.preventDefault();
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }
+                        closeMobile();
+                      }}
                       style={{
                         display: "block",
                         padding: "18px 0",
