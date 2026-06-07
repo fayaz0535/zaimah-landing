@@ -1,26 +1,66 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* ── Brand tokens (static, both modes) ─────────────────────── */
+@theme {
+  --font-sans: var(--font-space-grotesk, sans-serif);
+  --color-brand-indigo: #5B5BF6;
+  --color-brand-teal: #00C9A7;
+}
+
+/* ── Light mode (default) ──────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-page: #F9FAFB;
+  --bg-surface: #FFFFFF;
+  --bg-input: #F9FAFB;
+  --border-col: #F3F4F6;
+  --border-hover: #E5E7EB;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.07);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ── Dark mode ─────────────────────────────────────────────── */
+.dark {
+  --bg-page: #06060E;
+  --bg-surface: #0D0D1A;
+  --bg-input: rgba(255, 255, 255, 0.04);
+  --border-col: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --text-primary: #F0F0FF;
+  --text-secondary: #8888AA;
+  --text-muted: #555566;
+  --shadow-card: 0 8px 24px rgba(91, 91, 246, 0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ── Base ──────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-space-grotesk, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Global focus ring ─────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #5B5BF6;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ── Gradient text utility ─────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #5B5BF6, #00C9A7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Custom scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(91,91,246,0.25); border-radius: 4px; }
