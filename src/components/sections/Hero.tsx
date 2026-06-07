@@ -89,13 +89,12 @@ export default function Hero() {
             letterSpacing: "-0.02em",
             color: "var(--text-primary)",
             marginBottom: 20,
-            whiteSpace: "nowrap",
           }}
-          className="lg:whitespace-nowrap whitespace-normal"
         >
-          We Build{" "}
-          <span className="gradient-text">Intelligent</span>
-          {" "}Technology
+          <span style={{ display: "block" }}>
+            We Build <span className="gradient-text">Intelligent</span>
+          </span>
+          <span style={{ display: "block" }}>Technology</span>
         </motion.h1>
 
         {/* Sub */}
