@@ -11,89 +11,95 @@ interface Node {
   color: string;
 }
 
-const NODE_COUNT = 55;
-const MAX_DIST = 110;
-const MAX_VEL = 0.3;
-const RIGHT_BOUNDARY = 0.35; // nodes use 65% of canvas
+const NODE_COUNT = 44;
+const MAX_DIST   = 130;
+const MAX_VEL    = 0.2;
 
 function pickRadius(): number {
   const roll = Math.random();
-  if (roll < 0.30) return 1.5 + Math.random() * 1.0;        // small  30%: 1.5–2.5
-  if (roll < 0.80) return 3.0 + Math.random() * 2.0;        // medium 50%: 3–5
-  return 6.0 + Math.random() * 4.0;                          // large  20%: 6–10
+  if (roll < 0.45) return 0.8 + Math.random() * 0.9;   // tiny  45%: 0.8–1.7
+  if (roll < 0.82) return 1.8 + Math.random() * 1.4;   // small 37%: 1.8–3.2
+  return 3.4 + Math.random() * 2.0;                      // accent 18%: 3.4–5.4
 }
 
-function makeNode(canvasWidth: number, canvasHeight: number): Node {
-  const xMin = canvasWidth * RIGHT_BOUNDARY;
+function makeNode(w: number, maxY: number): Node {
   return {
-    x: xMin + Math.random() * canvasWidth * (1 - RIGHT_BOUNDARY),
-    y: Math.random() * canvasHeight,
+    x:  w * 0.03 + Math.random() * w * 0.94,
+    y:  Math.random() * maxY,
     vx: (Math.random() - 0.5) * MAX_VEL * 2,
     vy: (Math.random() - 0.5) * MAX_VEL * 2,
-    r: pickRadius(),
+    r:  pickRadius(),
     color: Math.random() > 0.5 ? "#5B5BF6" : "#00C9A7",
   };
 }
 
 export default function NodeNetwork() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const nodesRef = useRef<Node[]>([]);
-  const rafRef = useRef<number>(0);
+  const maskRef   = useRef<HTMLDivElement>(null);
+  const nodesRef  = useRef<Node[]>([]);
+  const rafRef    = useRef<number>(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const mask   = maskRef.current;
+    if (!canvas || !mask) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let width = canvas.offsetWidth;
+    let width  = canvas.offsetWidth;
     let height = canvas.offsetHeight;
 
     function resize() {
       if (!canvas) return;
-      width = canvas.offsetWidth;
+      width  = canvas.offsetWidth;
       height = canvas.offsetHeight;
-      canvas.width = width;
+      canvas.width  = width;
       canvas.height = height;
-      nodesRef.current = Array.from({ length: NODE_COUNT }, () => makeNode(width, height));
+      const maxY = height * 0.52;
+      nodesRef.current = Array.from({ length: NODE_COUNT }, () => makeNode(width, maxY));
     }
 
     resize();
-
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
     function draw() {
-      if (!ctx || !canvas) return;
+      if (!ctx || !canvas || !mask) return;
       const isDark = document.documentElement.classList.contains("dark");
-      const nodeAlpha = isDark ? 0.73 : 0.45;
-      const lineAlphaMax = isDark ? 0.28 : 0.18;
+      const maxY   = height * 0.52;
+
+      // Sync fade mask gradient to hero bg color
+      mask.style.background = isDark
+        ? "linear-gradient(to bottom, rgba(6,6,14,0) 0%, rgba(6,6,14,0.82) 58%, #06060E 100%)"
+        : "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.82) 58%, #ffffff 100%)";
 
       ctx.clearRect(0, 0, width, height);
       const nodes = nodesRef.current;
-      const xMin = width * RIGHT_BOUNDARY;
 
-      // Update + bounce
+      // Move + bounce
       for (const n of nodes) {
         n.x += n.vx;
         n.y += n.vy;
-        if (n.x < xMin + n.r) { n.x = xMin + n.r; n.vx = Math.abs(n.vx); }
-        if (n.x > width - n.r) { n.x = width - n.r; n.vx = -Math.abs(n.vx); }
-        if (n.y < n.r)          { n.y = n.r;          n.vy = Math.abs(n.vy); }
-        if (n.y > height - n.r) { n.y = height - n.r; n.vy = -Math.abs(n.vy); }
+        if (n.x < n.r)           { n.x = n.r;           n.vx =  Math.abs(n.vx); }
+        if (n.x > width - n.r)   { n.x = width - n.r;   n.vx = -Math.abs(n.vx); }
+        if (n.y < n.r)           { n.y = n.r;           n.vy =  Math.abs(n.vy); }
+        if (n.y > maxY - n.r)    { n.y = maxY - n.r;    n.vy = -Math.abs(n.vy); }
       }
 
-      // Draw connections
+      // Connections
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
+          const dx   = nodes[i].x - nodes[j].x;
+          const dy   = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < MAX_DIST) {
-            const alpha = lineAlphaMax * (1 - dist / MAX_DIST);
+            const yFadeI = Math.max(0, 1 - nodes[i].y / maxY);
+            const yFadeJ = Math.max(0, 1 - nodes[j].y / maxY);
+            const yFade  = Math.min(yFadeI, yFadeJ);
+            const alpha  = 0.26 * (1 - dist / MAX_DIST) * yFade;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(160,155,230,${alpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(140,135,220,${alpha.toFixed(3)})`;
+            ctx.lineWidth   = 0.8;
             ctx.moveTo(nodes[i].x, nodes[i].y);
             ctx.lineTo(nodes[j].x, nodes[j].y);
             ctx.stroke();
@@ -101,12 +107,13 @@ export default function NodeNetwork() {
         }
       }
 
-      // Draw nodes
+      // Nodes
       for (const n of nodes) {
-        const hex = n.color === "#5B5BF6" ? "91,91,246" : "0,201,167";
+        const yFade   = Math.max(0, 1 - n.y / maxY);
+        const alphaHex = Math.round(yFade * 0x60).toString(16).padStart(2, "0");
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${hex},${nodeAlpha})`;
+        ctx.fillStyle = `${n.color}${alphaHex}`;
         ctx.fill();
       }
 
@@ -114,19 +121,28 @@ export default function NodeNetwork() {
     }
 
     rafRef.current = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      ro.disconnect();
-    };
+    return () => { cancelAnimationFrame(rafRef.current); ro.disconnect(); };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{ zIndex: 1, pointerEvents: "none" }}
-      aria-hidden="true"
-    />
+    <>
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+        style={{ zIndex: 1, pointerEvents: "none" }}
+        aria-hidden="true"
+      />
+      <div
+        ref={maskRef}
+        style={{
+          position: "absolute",
+          bottom: 0, left: 0, right: 0,
+          height: "50%",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      />
+    </>
   );
 }

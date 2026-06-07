@@ -1,13 +1,6 @@
 "use client";
 
-const quickLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#products", label: "Products" },
-  { href: "#about", label: "About" },
-  { href: "#contact", label: "Contact" },
-];
-
-// Inline SVG social icons — lucide-react dropped these in v0.400+
+// Inline SVG social icons — lucide-react dropped these in older versions
 function LinkedInIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -34,11 +27,72 @@ function InstagramIcon() {
   );
 }
 
-const socialLinks = [
-  { href: "#", label: "LinkedIn",   Icon: LinkedInIcon  },
-  { href: "#", label: "Twitter / X", Icon: XIcon         },
-  { href: "#", label: "Instagram",  Icon: InstagramIcon },
+const serviceLinks = [
+  "AI Development",
+  "IT Consulting",
+  "SaaS Products",
+  "Web & Hosting",
+  "Online Training",
+  "Digital Marketing",
 ];
+
+const productLinks = [
+  { label: "funnl", href: "https://funnl.zaimahtech.ae", external: true },
+  { label: "Sprint X", href: "#products", external: false },
+];
+
+const companyLinks = [
+  { label: "About",          href: "#about"   },
+  { label: "Contact",        href: "#contact"  },
+  { label: "Privacy Policy", href: "#"         },
+  { label: "Terms of Service",href: "#"        },
+];
+
+const socialLinks = [
+  { href: "#", label: "LinkedIn",    Icon: LinkedInIcon   },
+  { href: "#", label: "Twitter / X", Icon: XIcon          },
+  { href: "#", label: "Instagram",   Icon: InstagramIcon  },
+];
+
+const linkStyle: React.CSSProperties = {
+  fontSize: 11,
+  color: "var(--text-muted)",
+  textDecoration: "none",
+  display: "block",
+  marginBottom: 10,
+  transition: "color 0.2s",
+};
+
+function FooterLink({ href, label, external = false }: { href: string; label: string; external?: boolean }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      style={linkStyle}
+      onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#5B5BF6")}
+      onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--text-muted)")}
+    >
+      {label}
+    </a>
+  );
+}
+
+function ColHeading({ text }: { text: string }) {
+  return (
+    <div
+      style={{
+        fontSize: 10,
+        fontWeight: 600,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        color: "var(--text-muted)",
+        marginBottom: 16,
+      }}
+    >
+      {text}
+    </div>
+  );
+}
 
 export default function Footer() {
   return (
@@ -49,106 +103,59 @@ export default function Footer() {
       }}
       role="contentinfo"
     >
-      {/* Main columns */}
+      {/* 4-col grid */}
       <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "48px 24px 40px",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: 40,
-        }}
-        className="grid-cols-1 md:grid-cols-3"
+        style={{ maxWidth: 1200, margin: "0 auto", padding: "40px 32px 20px" }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]"
       >
-        {/* Brand */}
-        <div>
-          <div style={{ marginBottom: 12 }}>
-            <span style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)" }}>
-              Z<span className="gradient-text">AI</span>MAH
-            </span>
-            <div style={{ fontSize: 9, fontWeight: 500, letterSpacing: "0.16em", color: "var(--text-muted)", marginTop: 3 }}>
-              T E C H N O L O G I E S
-            </div>
-          </div>
-          <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.65, maxWidth: 220 }}>
-            Think forward. Build different.
-            <br />
-            Dubai-based AI technology company.
-          </p>
-        </div>
-
-        {/* Quick links */}
-        <div>
-          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 16 }}>
-            Quick Links
-          </div>
-          <ul style={{ listStyle: "none" }}>
-            {quickLinks.map((l) => (
-              <li key={l.href} style={{ marginBottom: 10 }}>
-                <a
-                  href={l.href}
-                  style={{
-                    fontSize: 13,
-                    color: "var(--text-secondary)",
-                    textDecoration: "none",
-                    transition: "color 0.2s",
-                  }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#5B5BF6")}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)")}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Social */}
-        <div>
-          <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 16 }}>
-            Follow Us
-          </div>
-          <div style={{ display: "flex", gap: 10 }}>
-            {socialLinks.map(({ href, label, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 8,
-                  border: "1px solid var(--border-col)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--text-secondary)",
-                  textDecoration: "none",
-                  transition: "border-color 0.2s, color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.borderColor = "#5B5BF6";
-                  el.style.color = "#5B5BF6";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement;
-                  el.style.borderColor = "var(--border-col)";
-                  el.style.color = "var(--text-secondary)";
-                }}
-              >
-                <Icon />
-              </a>
-            ))}
-          </div>
-          <div style={{ marginTop: 24 }}>
-            <a
-              href="mailto:fayaz@zaimahtech.ae"
-              style={{ fontSize: 12, color: "#5B5BF6", textDecoration: "none" }}
-            >
-              fayaz@zaimahtech.ae
+        <div style={{ display: "contents" }}>
+          {/* Col 1 — Brand */}
+          <div style={{ marginBottom: 32 }}>
+            <a href="/" aria-label="ZAIMAH TECHNOLOGIES home" style={{ textDecoration: "none", display: "inline-block", marginBottom: 12 }}>
+              <div style={{ lineHeight: 1.1 }}>
+                <span style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)" }}>
+                  Z
+                  <span
+                    style={{
+                      background: "linear-gradient(90deg, #5B5BF6, #00C9A7)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      fontWeight: 700,
+                      fontSize: 18,
+                    }}
+                  >
+                    AI
+                  </span>
+                  MAH
+                </span>
+              </div>
+              <div style={{ fontSize: 8, fontWeight: 500, letterSpacing: "0.18em", color: "var(--text-muted)", marginTop: 2 }}>
+                T E C H N O L O G I E S
+              </div>
             </a>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.65, maxWidth: 210 }}>
+              Dubai-based technology company building intelligent software products for UAE businesses and beyond.
+            </p>
+          </div>
+
+          {/* Col 2 — Services */}
+          <div style={{ marginBottom: 32 }}>
+            <ColHeading text="Services" />
+            {serviceLinks.map((s) => <FooterLink key={s} href="#services" label={s} />)}
+          </div>
+
+          {/* Col 3 — Products */}
+          <div style={{ marginBottom: 32 }}>
+            <ColHeading text="Products" />
+            {productLinks.map((p) => (
+              <FooterLink key={p.label} href={p.href} label={p.label} external={p.external} />
+            ))}
+          </div>
+
+          {/* Col 4 — Company */}
+          <div style={{ marginBottom: 32 }}>
+            <ColHeading text="Company" />
+            {companyLinks.map((c) => <FooterLink key={c.label} href={c.href} label={c.label} />)}
           </div>
         </div>
       </div>
@@ -156,14 +163,56 @@ export default function Footer() {
       {/* Bottom bar */}
       <div
         style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "18px 32px",
           borderTop: "1px solid var(--border-col)",
-          padding: "16px 24px",
-          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 12,
         }}
       >
         <p style={{ fontSize: 11, color: "var(--text-muted)" }}>
-          © {new Date().getFullYear()} ZAIMAH TECHNOLOGIES. All rights reserved. · Dubai, UAE
+          © 2026 ZAIMAH TECHNOLOGIES. All rights reserved. | Built in Dubai 🇦🇪
         </p>
+
+        {/* Social icons */}
+        <div style={{ display: "flex", gap: 8 }}>
+          {socialLinks.map(({ href, label, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              aria-label={label}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 8,
+                border: "1px solid var(--border-col)",
+                background: "var(--bg-surface)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--text-secondary)",
+                textDecoration: "none",
+                transition: "border-color 0.2s, color 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.borderColor = "#5B5BF6";
+                el.style.color = "#5B5BF6";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLAnchorElement;
+                el.style.borderColor = "var(--border-col)";
+                el.style.color = "var(--text-secondary)";
+              }}
+            >
+              <Icon />
+            </a>
+          ))}
+        </div>
       </div>
     </footer>
   );

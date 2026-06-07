@@ -10,7 +10,7 @@ const containerVariants = {
 
 const cardVariants = {
   hidden:  { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5,  } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 export default function Testimonials() {
@@ -18,32 +18,43 @@ export default function Testimonials() {
     <section
       id="testimonials"
       aria-label="Customer testimonials"
-      style={{ background: "var(--bg-surface)", padding: "80px 0" }}
+      style={{
+        background: "var(--bg-section-a)",
+        padding: "72px 32px",
+        borderTop: "1px solid var(--border-col)",
+      }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-        <p
-          style={{
-            fontSize: 9,
-            fontWeight: 600,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "#5B5BF6",
-            marginBottom: 12,
-          }}
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          What Clients Say
-        </p>
-        <h2
-          style={{
-            fontSize: 32,
-            fontWeight: 700,
-            letterSpacing: "-0.015em",
-            color: "var(--text-primary)",
-            marginBottom: 40,
-          }}
-        >
-          Client Stories
-        </h2>
+          <p
+            style={{
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "#5B5BF6",
+              marginBottom: 10,
+            }}
+          >
+            WHAT CLIENTS SAY
+          </p>
+          <h2
+            style={{
+              fontSize: 30,
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+              color: "var(--text-primary)",
+              marginBottom: 40,
+            }}
+          >
+            Client Stories
+          </h2>
+        </motion.div>
 
         {/* Desktop: 3-col grid | Mobile: horizontal scroll */}
         <motion.div
@@ -68,10 +79,10 @@ export default function Testimonials() {
               variants={cardVariants}
               role="listitem"
               style={{
-                background: "var(--bg-page)",
+                background: "var(--bg-surface)",
                 border: "1px solid var(--border-col)",
                 borderRadius: 12,
-                padding: 20,
+                padding: 22,
                 minWidth: 280,
                 scrollSnapAlign: "start",
                 flexShrink: 0,
@@ -81,13 +92,8 @@ export default function Testimonials() {
               {/* Stars */}
               <div
                 aria-label="5 out of 5 stars"
-                style={{
-                  fontSize: 14,
-                  color: "#5B5BF6",
-                  marginBottom: 12,
-                  letterSpacing: 2,
-                }}
                 role="img"
+                style={{ fontSize: 13, color: "#5B5BF6", marginBottom: 12, letterSpacing: 2 }}
               >
                 ★★★★★
               </div>
@@ -98,8 +104,8 @@ export default function Testimonials() {
                     fontSize: 12,
                     fontStyle: "italic",
                     color: "var(--text-secondary)",
-                    lineHeight: 1.7,
-                    marginBottom: 14,
+                    lineHeight: 1.75,
+                    marginBottom: 16,
                   }}
                 >
                   &ldquo;{t.quote}&rdquo;

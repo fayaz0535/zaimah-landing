@@ -84,7 +84,7 @@ export default function ChatWidget() {
 
   return (
     <div
-      style={{ position: "fixed", bottom: 24, right: 24, zIndex: 9998 }}
+      style={{ position: "fixed", bottom: 24, right: 24, zIndex: 100 }}
       aria-label="ZAIMAH AI chat widget"
     >
       <AnimatePresence>

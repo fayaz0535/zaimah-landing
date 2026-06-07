@@ -8,22 +8,19 @@ import { NAV_LINKS } from "@/lib/constants";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled]       = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileOpen, setMobileOpen]   = useState(false);
 
-  // Glassmorphism on scroll
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Active section detection via IntersectionObserver
   useEffect(() => {
     const ids = NAV_LINKS.map((l) => l.href.replace("#", ""));
     const observers: IntersectionObserver[] = [];
-
     ids.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
@@ -34,7 +31,6 @@ export default function Navbar() {
       obs.observe(el);
       observers.push(obs);
     });
-
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
@@ -42,32 +38,33 @@ export default function Navbar() {
 
   const navBg = scrolled
     ? theme === "dark"
-      ? "rgba(6,6,14,0.82)"
-      : "rgba(255,255,255,0.82)"
-    : "transparent";
+      ? "rgba(13,13,26,0.85)"
+      : "rgba(255,255,255,0.85)"
+    : "var(--bg-surface)";
 
   return (
     <>
       <header
         role="banner"
         style={{
-          position: "fixed",
+          position: "sticky",
           top: 0, left: 0, right: 0,
-          zIndex: 100,
-          height: 68,
+          zIndex: 50,
+          height: 80,
           background: navBg,
           backdropFilter: scrolled ? "blur(12px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-          transition: "background 0.3s, backdrop-filter 0.3s",
+          transition: "background 0.3s",
         }}
       >
-        {/* Gradient border bottom */}
+        {/* 2px gradient border bottom */}
         <div
+          aria-hidden="true"
           style={{
             position: "absolute",
             bottom: 0, left: 0, right: 0,
-            height: 1,
-            background: "linear-gradient(90deg, transparent, rgba(91,91,246,0.3) 30%, rgba(0,201,167,0.3) 70%, transparent)",
+            height: 2,
+            background: "linear-gradient(90deg, transparent, rgba(91,91,246,0.4) 30%, rgba(0,201,167,0.4) 70%, transparent)",
           }}
         />
 
@@ -78,30 +75,28 @@ export default function Navbar() {
             margin: "0 auto",
             height: "100%",
             padding: "0 24px",
-            display: "flex",
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr",
             alignItems: "center",
-            justifyContent: "space-between",
           }}
         >
-          {/* Logo */}
+          {/* Logo — left col */}
           <a
             href="/"
             aria-label="ZAIMAH TECHNOLOGIES home"
-            style={{ textDecoration: "none", flexShrink: 0 }}
+            style={{ textDecoration: "none", display: "inline-block" }}
           >
-            <div style={{ lineHeight: 1 }}>
-              <span
-                style={{
-                  fontSize: 18,
-                  fontWeight: 700,
-                  letterSpacing: "0.01em",
-                  color: "var(--text-primary)",
-                }}
-              >
+            <div style={{ lineHeight: 1.1 }}>
+              <span style={{ fontSize: 22, fontWeight: 700, letterSpacing: "0.01em", color: "var(--text-primary)" }}>
                 Z
                 <span
-                  className="gradient-text"
-                  style={{ fontWeight: 700, fontSize: 18 }}
+                  style={{
+                    background: "linear-gradient(90deg, #5B5BF6, #00C9A7)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    fontWeight: 700,
+                    fontSize: 22,
+                  }}
                 >
                   AI
                 </span>
@@ -110,9 +105,9 @@ export default function Navbar() {
             </div>
             <div
               style={{
-                fontSize: 8,
+                fontSize: 8.5,
                 fontWeight: 500,
-                letterSpacing: "0.18em",
+                letterSpacing: "0.24em",
                 color: "var(--text-muted)",
                 marginTop: 2,
               }}
@@ -121,26 +116,27 @@ export default function Navbar() {
             </div>
           </a>
 
-          {/* Desktop links */}
+          {/* Center nav links */}
           <ul
             className="hidden md:flex"
-            style={{ listStyle: "none", gap: 32, alignItems: "center" }}
+            style={{ listStyle: "none", gap: 36, alignItems: "center" }}
             role="list"
           >
             {NAV_LINKS.map((link) => {
-              const id = link.href.replace("#", "");
+              const id       = link.href.replace("#", "");
               const isActive = activeSection === id;
               return (
                 <li key={link.href} style={{ position: "relative" }}>
                   <a
                     href={link.href}
                     style={{
-                      fontSize: 13,
-                      fontWeight: 500,
+                      fontSize: 14,
+                      fontWeight: isActive ? 600 : 500,
                       textDecoration: "none",
                       color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                       transition: "color 0.2s",
                       paddingBottom: 4,
+                      display: "block",
                     }}
                     onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--text-primary)")}
                     onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = isActive ? "var(--text-primary)" : "var(--text-secondary)")}
@@ -148,12 +144,12 @@ export default function Navbar() {
                     {link.label}
                     {isActive && (
                       <motion.span
-                        layoutId="active-underline"
+                        layoutId="nav-underline"
                         style={{
                           position: "absolute",
                           bottom: -2, left: 0, right: 0,
                           height: 2,
-                          background: "linear-gradient(90deg, rgba(91,91,246,0.5), rgba(0,201,167,0.5))",
+                          background: "linear-gradient(90deg, #5B5BF6, #00C9A7)",
                           borderRadius: 1,
                         }}
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -166,15 +162,17 @@ export default function Navbar() {
           </ul>
 
           {/* Right actions */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            {/* Theme toggle — hidden on mobile */}
+          <div
+            style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "flex-end" }}
+          >
+            {/* Theme toggle — desktop */}
             <button
               onClick={toggleTheme}
               aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
               className="hidden md:flex"
               style={{
-                width: 32,
-                height: 32,
+                width: 36,
+                height: 36,
                 borderRadius: "50%",
                 border: "1px solid var(--border-col)",
                 background: "transparent",
@@ -194,17 +192,17 @@ export default function Navbar() {
                 (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)";
               }}
             >
-              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
             </button>
 
-            {/* CTA */}
+            {/* Get in Touch CTA */}
             <a
               href="#contact"
               className="hidden md:inline-flex"
               style={{
-                padding: "8px 18px",
-                borderRadius: 8,
-                fontSize: 12,
+                padding: "10px 22px",
+                borderRadius: 9,
+                fontSize: 13,
                 fontWeight: 600,
                 textDecoration: "none",
                 background: theme === "dark" ? "#F0F0FF" : "#111827",
@@ -218,7 +216,7 @@ export default function Navbar() {
               Get in Touch
             </a>
 
-            {/* Hamburger — mobile only */}
+            {/* Hamburger — mobile */}
             <button
               className="flex md:hidden"
               onClick={() => setMobileOpen((o) => !o)}
@@ -232,7 +230,7 @@ export default function Navbar() {
                 padding: 4,
               }}
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </nav>
@@ -242,33 +240,26 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeMobile}
-              style={{
-                position: "fixed",
-                inset: 0,
-                zIndex: 98,
-                background: "rgba(0,0,0,0.4)",
-              }}
+              style={{ position: "fixed", inset: 0, zIndex: 48, background: "rgba(0,0,0,0.4)" }}
               aria-hidden="true"
             />
 
-            {/* Drawer */}
             <motion.div
               key="drawer"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
+              transition={{ duration: 0.22 }}
               style={{
                 position: "fixed",
-                top: 68, left: 0, right: 0,
-                zIndex: 99,
+                top: 80, left: 0, right: 0,
+                zIndex: 49,
                 background: "var(--bg-surface)",
                 borderBottom: "1px solid var(--border-col)",
                 padding: "20px 24px 28px",
@@ -284,8 +275,8 @@ export default function Navbar() {
                       onClick={closeMobile}
                       style={{
                         display: "block",
-                        padding: "14px 0",
-                        fontSize: 15,
+                        padding: "18px 0",
+                        fontSize: 18,
                         fontWeight: 500,
                         textDecoration: "none",
                         color: "var(--text-primary)",
@@ -302,7 +293,7 @@ export default function Navbar() {
                   onClick={() => { toggleTheme(); closeMobile(); }}
                   aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
                   style={{
-                    width: 36, height: 36,
+                    width: 40, height: 40,
                     borderRadius: "50%",
                     border: "1px solid var(--border-col)",
                     background: "transparent",
@@ -313,7 +304,7 @@ export default function Navbar() {
                     color: "var(--text-secondary)",
                   }}
                 >
-                  {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
                 </button>
 
                 <a
@@ -321,9 +312,9 @@ export default function Navbar() {
                   onClick={closeMobile}
                   style={{
                     flex: 1,
-                    padding: "10px 0",
-                    borderRadius: 8,
-                    fontSize: 13,
+                    padding: "12px 0",
+                    borderRadius: 9,
+                    fontSize: 14,
                     fontWeight: 600,
                     textDecoration: "none",
                     textAlign: "center",

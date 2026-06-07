@@ -8,11 +8,18 @@ interface Props {
   suffix?: string;
   duration?: number;
   isText?: boolean;
+  fontSize?: number;
 }
 
-export default function AnimatedCounter({ target, suffix = "", duration = 1800, isText = false }: Props) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+export default function AnimatedCounter({
+  target,
+  suffix = "",
+  duration = 1800,
+  isText = false,
+  fontSize = 22,
+}: Props) {
+  const ref        = useRef<HTMLSpanElement>(null);
+  const isInView   = useInView(ref, { once: true, margin: "-80px" });
   const [value, setValue] = useState(0);
   const hasStarted = useRef(false);
 
@@ -22,10 +29,9 @@ export default function AnimatedCounter({ target, suffix = "", duration = 1800, 
 
     const start = performance.now();
     const raf = (now: number) => {
-      const elapsed = now - start;
+      const elapsed  = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out-cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased    = 1 - Math.pow(1 - progress, 3);
       setValue(Math.round(target * eased));
       if (progress < 1) requestAnimationFrame(raf);
     };
@@ -34,14 +40,22 @@ export default function AnimatedCounter({ target, suffix = "", duration = 1800, 
 
   if (isText) {
     return (
-      <span ref={ref} className="gradient-text" style={{ fontSize: 22, fontWeight: 700 }}>
+      <span
+        ref={ref}
+        className="gradient-text"
+        style={{ fontSize, fontWeight: 700 }}
+      >
         {suffix}
       </span>
     );
   }
 
   return (
-    <span ref={ref} className="gradient-text" style={{ fontSize: 22, fontWeight: 700 }}>
+    <span
+      ref={ref}
+      className="gradient-text"
+      style={{ fontSize, fontWeight: 700 }}
+    >
       {value}{suffix}
     </span>
   );

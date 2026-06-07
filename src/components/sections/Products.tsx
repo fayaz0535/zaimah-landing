@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 const sectionVariants = {
   hidden:  { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55,  } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
 };
 
 function FunnlCard() {
@@ -16,20 +16,21 @@ function FunnlCard() {
       style={{ position: "relative" }}
       aria-label="funnl product"
     >
-      {/* Gradient border via pseudo via wrapper */}
+      {/* Gradient border wrapper */}
       <div
         style={{
           background: "linear-gradient(135deg, #5B5BF6, #00C9A7)",
-          borderRadius: 13,
-          padding: 1.5,
+          borderRadius: 15,
+          padding: 2,
         }}
       >
         <div
           style={{
             background: "var(--bg-surface)",
-            borderRadius: 12,
+            borderRadius: 13,
             padding: 24,
             position: "relative",
+            height: "100%",
           }}
         >
           {/* FEATURED badge */}
@@ -51,32 +52,31 @@ function FunnlCard() {
             Featured
           </div>
 
-          {/* Logo */}
-          <div style={{ marginBottom: 8 }}>
-            <h3
-              style={{
-                fontSize: 28,
-                fontWeight: 700,
-                letterSpacing: "-0.02em",
-                color: "var(--text-primary)",
-                lineHeight: 1,
-                marginBottom: 6,
-              }}
-            >
-              funnl
-            </h3>
-            <p
-              style={{
-                fontSize: 10,
-                fontWeight: 600,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: "#00C9A7",
-              }}
-            >
-              Capture. Qualify. Convert.
-            </p>
-          </div>
+          {/* Name */}
+          <h3
+            style={{
+              fontSize: 28,
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+              color: "var(--text-primary)",
+              lineHeight: 1,
+              marginBottom: 6,
+            }}
+          >
+            funnl
+          </h3>
+          <p
+            style={{
+              fontSize: 9,
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#00C9A7",
+              marginBottom: 16,
+            }}
+          >
+            CAPTURE. QUALIFY. CONVERT.
+          </p>
 
           <p
             style={{
@@ -84,13 +84,11 @@ function FunnlCard() {
               color: "var(--text-secondary)",
               lineHeight: 1.65,
               marginBottom: 20,
-              marginTop: 16,
             }}
           >
             AI-powered lead generation and appointment booking SaaS for UAE SMEs.
             WhatsApp-native, bilingual, and fully autonomous — it qualifies leads,
-            books appointments, and follows up without a human in the loop. Built
-            for how Gulf businesses actually operate.
+            books appointments, and follows up without a human in the loop.
           </p>
 
           <ul
@@ -103,10 +101,10 @@ function FunnlCard() {
             }}
           >
             {[
-              "AI agent qualifies and books via WhatsApp",
-              "Live CRM dashboard with lead scoring",
-              "Arabic and English, out of the box",
-              "Sector-aware: salons, clinics, real estate, and more",
+              "WhatsApp AI conversations 24/7",
+              "Automatic lead qualification",
+              "Smart appointment booking",
+              "Multi-sector AI personas",
             ].map((feat) => (
               <li
                 key={feat}
@@ -118,7 +116,7 @@ function FunnlCard() {
                   gap: 8,
                 }}
               >
-                <span style={{ color: "#00C9A7", marginTop: 2, flexShrink: 0 }}>✓</span>
+                <span style={{ color: "#00C9A7", marginTop: 1, flexShrink: 0 }}>✓</span>
                 {feat}
               </li>
             ))}
@@ -128,7 +126,7 @@ function FunnlCard() {
             href="https://funnl.zaimahtech.ae"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Visit funnl"
+            aria-label="Visit funnl — opens in new tab"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -159,7 +157,7 @@ function SprintXCard() {
       style={{
         background: "var(--bg-surface)",
         border: "1px solid var(--border-col)",
-        borderRadius: 12,
+        borderRadius: 14,
         padding: 24,
         display: "flex",
         flexDirection: "column",
@@ -188,7 +186,7 @@ function SprintXCard() {
 
       <h3
         style={{
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: 700,
           letterSpacing: "-0.01em",
           color: "var(--text-primary)",
@@ -225,6 +223,7 @@ function SprintXCard() {
             borderRadius: 6,
             color: "var(--text-primary)",
             outline: "none",
+            fontFamily: "inherit",
           }}
         />
         <button
@@ -240,6 +239,7 @@ function SprintXCard() {
             border: "none",
             cursor: "pointer",
             whiteSpace: "nowrap",
+            fontFamily: "inherit",
           }}
         >
           Notify Me
@@ -255,45 +255,50 @@ export default function Products() {
       id="products"
       aria-label="Our products"
       style={{
-        background: "var(--bg-surface)",
-        padding: "80px 0",
+        background: "var(--bg-section-b)",
+        padding: "72px 32px",
+        borderTop: "1px solid var(--border-col)",
       }}
     >
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
-        <p
-          style={{
-            fontSize: 9,
-            fontWeight: 600,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "#5B5BF6",
-            marginBottom: 12,
-          }}
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          What We Ship
-        </p>
-        <h2
-          style={{
-            fontSize: 32,
-            fontWeight: 700,
-            letterSpacing: "-0.015em",
-            color: "var(--text-primary)",
-            marginBottom: 40,
-          }}
-        >
-          Our Products
-        </h2>
+          <p
+            style={{
+              fontSize: 10,
+              fontWeight: 600,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "#5B5BF6",
+              marginBottom: 10,
+            }}
+          >
+            WHAT WE SHIP
+          </p>
+          <h2
+            style={{
+              fontSize: 30,
+              fontWeight: 700,
+              letterSpacing: "-0.015em",
+              color: "var(--text-primary)",
+              marginBottom: 40,
+            }}
+          >
+            Our Products
+          </h2>
+        </motion.div>
 
         <motion.div
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 16,
-          }}
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{ gap: 16 }}
         >
           <FunnlCard />
           <SprintXCard />
