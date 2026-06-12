@@ -37,21 +37,21 @@ const serviceLinks = [
 ];
 
 const productLinks = [
-  { label: "funnl", href: "https://funnl.zaimahtech.ae", external: true },
-  { label: "Sprint X", href: "#products", external: false },
+  { label: "funnl",   href: "https://funnl.zaimahtech.ae",   external: true },
+  { label: "SprintX", href: "https://sprintx.zaimahtech.ae", external: true },
 ];
 
 const companyLinks = [
-  { label: "About",          href: "#about"   },
-  { label: "Contact",        href: "#contact"  },
-  { label: "Privacy Policy", href: "#"         },
-  { label: "Terms of Service",href: "#"        },
+  { label: "About",           href: "#about"    },
+  { label: "Contact",         href: "#contact"  },
+  { label: "Privacy Policy",  href: "/privacy"  },
+  { label: "Terms of Service",href: "/terms"    },
 ];
 
 const socialLinks = [
-  { href: "#", label: "LinkedIn",    Icon: LinkedInIcon   },
-  { href: "#", label: "Twitter / X", Icon: XIcon          },
-  { href: "#", label: "Instagram",   Icon: InstagramIcon  },
+  { href: "https://www.linkedin.com/company/zaimahtech", label: "LinkedIn",    Icon: LinkedInIcon   },
+  { href: "#",                                            label: "Twitter / X", Icon: XIcon          },
+  { href: "#",                                            label: "Instagram",   Icon: InstagramIcon  },
 ];
 
 const linkStyle: React.CSSProperties = {

@@ -1,28 +1,32 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ── Brand tokens (static, both modes) ─────────────────────── */
 @theme {
-  --font-sans: var(--font-space-grotesk, sans-serif);
-  --color-brand-indigo: #5B5BF6;
-  --color-brand-teal: #00C9A7;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --color-brand-indigo: #5B6FD4;
+  --color-brand-teal:   #4ECFB3;
 }
 
-/* ── Light mode (default) ──────────────────────────────────── */
+/* ── Design tokens ─────────────────────────────────────────── */
 :root {
-  --bg-page:       #F9FAFB;
-  --bg-surface:    #FFFFFF;
-  --bg-input:      #F9FAFB;
-  --border-col:    #F3F4F6;
-  --border-hover:  #E5E7EB;
-  --text-primary:  #111827;
-  --text-secondary:#6B7280;
-  --text-muted:    #9CA3AF;
-  --shadow-card:   0 6px 20px rgba(0,0,0,0.06);
+  --indigo:   #5B6FD4;
+  --teal:     #4ECFB3;
+  --ink:      #1B1B35;
+  --grey-50:  #F5F5F5;
+  --border:   #E8E8E8;
 
-  /* Section alternating backgrounds */
-  --bg-section-a: #FFFFFF;   /* hero, services, process, testimonials */
-  --bg-section-b: #F9FAFB;   /* products, about, contact */
+  --bg-page:       #FFFFFF;
+  --bg-surface:    #FFFFFF;
+  --bg-input:      #FFFFFF;
+  --border-col:    #E8E8E8;
+  --border-hover:  #D1D5DB;
+  --text-primary:  #1B1B35;
+  --text-secondary:#4B5563;
+  --text-muted:    #9CA3AF;
+  --shadow-card:   0 4px 16px rgba(0,0,0,0.06);
+
+  --bg-section-a: #FFFFFF;
+  --bg-section-b: #F5F5F5;
 }
 
 /* ── Dark mode ─────────────────────────────────────────────── */
@@ -35,7 +39,7 @@
   --text-primary:  #F0F0FF;
   --text-secondary:#8888AA;
   --text-muted:    #555566;
-  --shadow-card:   0 6px 20px rgba(91,91,246,0.1);
+  --shadow-card:   0 6px 20px rgba(91,111,212,0.1);
 
   --bg-section-a: #06060E;
   --bg-section-b: #0A0A14;
@@ -47,27 +51,25 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg-page);
   color: var(--text-primary);
-  font-family: var(--font-space-grotesk, system-ui, sans-serif);
+  font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Global focus ring ─────────────────────────────────────── */
 *:focus-visible {
-  outline: 2px solid #5B5BF6;
+  outline: 2px solid var(--indigo);
   outline-offset: 2px;
   border-radius: 3px;
 }
 
-/* ── Gradient text utility ─────────────────────────────────── */
-.gradient-text {
-  background: linear-gradient(90deg, #5B5BF6, #00C9A7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Custom scrollbar ──────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(91,91,246,0.25); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(91,111,212,0.25); border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
