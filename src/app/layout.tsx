@@ -176,11 +176,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold focus:text-white"
-          style={{ background: "#5B6FD4" }}
-        >
+        <a href="#main-content" className="skip-link">
           Skip to content
         </a>
         <ThemeProvider>{children}</ThemeProvider>

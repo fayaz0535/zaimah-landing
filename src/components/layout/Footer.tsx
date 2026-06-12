@@ -175,7 +175,7 @@ export default function Footer() {
         }}
       >
         <p style={{ fontSize: 11, color: "var(--text-muted)" }}>
-          © 2026 ZAIMAH TECHNOLOGIES. All rights reserved. | Built in Dubai 🇦🇪
+          © 2026 ZAIMAH Technologies FZE · All rights reserved · Built in Dubai
         </p>
 
         {/* Social icons */}
