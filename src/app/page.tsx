@@ -458,8 +458,14 @@ export default function Home() {
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fade}>
-              <p style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B6FD4", marginBottom: 10 }}>WHAT WE SHIP</p>
-              <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.015em", color: "var(--ink)", marginBottom: 40 }}>Our Products</h2>
+              <p className="eyebrow teal">Our products</p>
+              <h2 style={{ fontSize: 30, fontWeight: 700, letterSpacing: "-0.015em", color: "var(--ink)", marginBottom: 12 }}>
+                Two AI platforms.<br />One obsession: your results.
+              </h2>
+              <p className="section-lead">
+                We don&apos;t consult — we ship. funnl and SprintX are live,
+                solving real problems for UAE businesses right now.
+              </p>
             </motion.div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
@@ -470,21 +476,20 @@ export default function Home() {
                 aria-label="funnl product"
                 className="product-card teal-accent"
               >
-                <span className="product-tag teal-tag">WhatsApp AI · Lead gen</span>
+                <span className="product-tag teal-tag">AI customer acquisition</span>
                 <h3 className="product-name">funnl</h3>
                 <p className="product-sub">
-                  AI-powered lead generation and appointment booking SaaS for UAE SMEs.
-                  WhatsApp-native, bilingual, and fully autonomous — it qualifies leads,
-                  books appointments, and follows up without a human in the loop.
+                  The AI agent that turns WhatsApp conversations into booked
+                  appointments — without a single human touch.
                 </p>
                 <ul className="product-features">
-                  <li><span className="feat-dot teal-dot" />WhatsApp AI conversations 24/7</li>
-                  <li><span className="feat-dot teal-dot" />Automatic lead qualification &amp; scoring</li>
-                  <li><span className="feat-dot teal-dot" />Smart appointment booking &amp; reminders</li>
-                  <li><span className="feat-dot teal-dot" />Arabic &amp; English — multi-sector personas</li>
+                  <li><span className="feat-dot teal-dot" />Fatimah AI agent qualifies leads &amp; books 24/7 on WhatsApp</li>
+                  <li><span className="feat-dot teal-dot" />Handles reschedules, follow-ups and reminders automatically</li>
+                  <li><span className="feat-dot teal-dot" />Live availability-aware booking with staff assignment</li>
+                  <li><span className="feat-dot teal-dot" />Marketing campaigns + real-time analytics dashboard</li>
                 </ul>
-                <p className="product-for">Salons · Clinics · Real estate · Retail · SMEs</p>
-                <a href="https://funnl.zaimahtech.ae" target="_blank" rel="noopener noreferrer" className="product-cta teal-cta">
+                <p className="product-for">Salons · clinics · real estate · gyms · home services</p>
+                <a href="https://funnl.zaimahtech.ae" className="product-cta teal-cta">
                   Visit funnl →
                 </a>
               </motion.article>
@@ -508,7 +513,7 @@ export default function Home() {
                   <li><span className="feat-dot indigo-dot" />LangGraph orchestration for auditable multi-agent reasoning</li>
                 </ul>
                 <p className="product-for">Engineering teams · CTOs · product leaders · scale-ups</p>
-                <a href="https://sprintx.zaimahtech.ae" target="_blank" rel="noopener noreferrer" className="product-cta indigo-cta">
+                <a href="https://sprintx.zaimahtech.ae" className="product-cta indigo-cta">
                   Request early access →
                 </a>
               </motion.article>
