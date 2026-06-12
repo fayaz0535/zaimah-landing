@@ -72,7 +72,9 @@ function HeroCanvas() {
       const RX  = W * 0.32;
       const RY  = 168;
 
-      ctx.fillStyle = "#ffffff";
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark'
+        || window.matchMedia('(prefers-color-scheme: dark)').matches;
+      ctx.fillStyle = isDark ? '#0F0F1A' : '#ffffff';
       ctx.fillRect(0, 0, W, H);
 
       const nodes = nodesRef.current;
