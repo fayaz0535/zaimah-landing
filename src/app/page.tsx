@@ -286,6 +286,17 @@ export default function Home() {
   const [showScroll, setShowScroll] = useState(true);
 
   useEffect(() => {
+    const target = sessionStorage.getItem('scrollTo');
+    if (target) {
+      sessionStorage.removeItem('scrollTo');
+      setTimeout(() => {
+        const el = document.getElementById(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setShowScroll(window.scrollY < 100);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -298,7 +309,7 @@ export default function Home() {
 
         {/* ── HERO ────────────────────────────────────────── */}
         <section
-          id="hero"
+          id="home"
           aria-label="Hero"
           style={{ position: "relative", minHeight: "100vh", overflow: "hidden", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "var(--bg-primary)" }}
         >
