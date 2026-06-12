@@ -35,7 +35,7 @@ export default function BlogPage() {
                 style={{ textDecoration: "none" }}
               >
                 <div className="blog-card-body">
-                  <span className="blog-tag">{post.tag}</span>
+                  <span className="blog-tag">{post.category}</span>
                   <h2 className="blog-title">{post.title}</h2>
                   <p className="blog-excerpt">{post.excerpt}</p>
                   <div className="blog-meta">

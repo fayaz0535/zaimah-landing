@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: Props) {
           </Link>
 
           <div className="blog-post-header">
-            <span className="blog-tag">{post.tag}</span>
+            <span className="blog-tag">{post.category}</span>
             <h1 style={{ fontSize: "clamp(22px,3.5vw,32px)", fontWeight: 800, letterSpacing: "-0.03em", color: "var(--ink)", margin: "12px 0 10px", lineHeight: 1.2 }}>
               {post.title}
             </h1>

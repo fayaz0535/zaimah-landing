@@ -4,128 +4,126 @@ export interface BlogPost {
   excerpt: string;
   date: string;
   readTime: string;
-  tag: string;
+  category: string;
   contentHtml: string;
 }
 
-const POSTS: BlogPost[] = [
-  {
-    slug: "ai-for-uae-smes-2026",
-    title: "AI for UAE SMEs in 2026: What's Actually Working",
-    excerpt:
-      "Most AI hype is aimed at enterprises. Here's what small and medium businesses in the UAE are deploying today — and the honest ROI numbers behind each use case.",
-    date: "2026-06-01",
-    readTime: "5 min read",
-    tag: "AI Strategy",
-    contentHtml: `
-      <h2>The hype gap is real</h2>
-      <p>When you run an SME in Dubai, AI news feels designed for someone else. GPT-4 agents, enterprise LLM deployments, billion-dollar model training runs — none of it maps to a 12-person logistics company in Al Quoz or a salon group in JBR.</p>
-      <p>But there is a narrow band of AI use cases that are genuinely working for UAE SMEs right now. They share three traits: they run on WhatsApp (where your customers already are), they have a clear ROI anchor (fewer missed bookings, faster lead response), and they can be set up in days — not months.</p>
-      <h2>What's working: the short list</h2>
-      <h3>1. WhatsApp booking automation</h3>
-      <p>The highest-ROI AI deployment for UAE SMEs is automating inbound appointment booking over WhatsApp. A trained customer will message "can I book Tuesday 4pm?" and the AI handles confirmation, reminder, and cancellation — all in Arabic or English — without a staff member touching it.</p>
-      <p>Salons, clinics, and personal trainers using funnl report 35–45% reduction in no-shows and a measurable jump in after-hours bookings (the messages sent at 11pm that used to go unread until morning).</p>
-      <h3>2. Lead qualification</h3>
-      <p>Real estate agents and B2B service firms are using WhatsApp AI to pre-qualify inbound enquiries before a salesperson picks up the phone. The AI asks budget, timeline, and decision-maker questions — and scores the lead before handoff.</p>
-      <h3>3. FAQ deflection</h3>
-      <p>Customer service cost is a real constraint for SMEs. Training a WhatsApp bot on your top 40 questions (pricing, location, opening hours, return policy) can deflect 60–70% of support messages, leaving your team for the complex ones.</p>
-      <h2>What isn't working (yet)</h2>
-      <p>AI content generation for social media sounds like an easy win, but UAE SMEs report that generic AI copy performs worse than authentic posts — the local cultural nuance is hard to replicate without careful prompting. Voice AI for phone calls has high setup cost and customers often abandon when they realise it's a bot. Computer vision use cases (inventory counting, quality inspection) are proving promising but require infrastructure investment most SMEs don't have.</p>
-      <blockquote>The SMEs winning with AI aren't trying to replace people. They're plugging AI into the gaps that exist between their staff's working hours and their customers' messaging habits.</blockquote>
-      <h2>The UAE angle</h2>
-      <p>One thing that distinguishes the UAE market: WhatsApp penetration is near-total across demographics. In most Western markets, AI deployment for SMEs starts with websites or chatbots. In the UAE, it starts with WhatsApp. Any SME AI strategy that doesn't centre WhatsApp is working against the grain of how business is actually done here.</p>
-      <p>UAE AI Vision 2031 is also creating a favourable regulatory environment. TDRA and DIFC have both been active in publishing AI governance frameworks that are enabling rather than restrictive — a meaningful contrast with some other markets.</p>
-      <h2>Getting started</h2>
-      <p>If you're an SME evaluating AI investment in 2026, start with one clear problem: the specific point where you're losing time or revenue. For most UAE service businesses, that's inbound WhatsApp volume. Solve that one thing before expanding scope.</p>
-    `,
-  },
-  {
-    slug: "whatsapp-ai-booking-dubai-salons",
-    title: "How Dubai Salons Are Using WhatsApp AI to Cut No-Shows by 40%",
-    excerpt:
-      "A look inside how beauty and wellness businesses across Dubai are deploying WhatsApp AI booking — the setup, the results, and the one mistake that kills adoption.",
-    date: "2026-05-14",
-    readTime: "4 min read",
-    tag: "Case Study",
-    contentHtml: `
-      <h2>The no-show problem in Dubai's salon industry</h2>
-      <p>A no-show at a 90-minute balayage appointment doesn't just mean lost revenue — it means a stylist standing idle during peak hours, a blocked slot that a paying client could have had, and the administrative overhead of chasing and rescheduling. Industry estimates put the average UAE salon's no-show rate between 18–25%.</p>
-      <p>Manual reminder calls help, but they're time-consuming and don't scale. SMS has low read rates. WhatsApp, however, has a near-100% open rate in the UAE.</p>
-      <h2>How the funnl flow works</h2>
-      <p>The WhatsApp AI booking flow for a typical salon has five touchpoints:</p>
-      <ul>
-        <li><strong>Inbound booking:</strong> Customer messages the salon's WhatsApp number. AI asks service, stylist preference, and preferred date/time.</li>
-        <li><strong>Slot confirmation:</strong> AI checks real-time availability and confirms the booking — or offers alternatives if the slot is taken.</li>
-        <li><strong>24-hour reminder:</strong> Automated WhatsApp message 24 hours before the appointment with a confirm/reschedule/cancel option.</li>
-        <li><strong>2-hour reminder:</strong> Final reminder two hours before. If the client hasn't confirmed by this point, the system flags the booking for manual follow-up.</li>
-        <li><strong>Post-visit review request:</strong> 3 hours after the appointment end time, automated message asking for a Google review.</li>
-      </ul>
-      <h2>The results</h2>
-      <p>Across funnl's current salon clients in Dubai, the average outcomes after 90 days of deployment are:</p>
-      <ul>
-        <li>No-show rate: reduced from ~22% to ~13% (40% reduction)</li>
-        <li>After-hours bookings: +28% (messages sent between 9pm–8am that would previously go unread)</li>
-        <li>Staff time on booking admin: reduced by ~3 hours per day per front-desk staff member</li>
-        <li>Google review volume: +60–80% (automated post-visit requests)</li>
-      </ul>
-      <h2>The one mistake that kills adoption</h2>
-      <p>The single biggest reason WhatsApp AI deployments fail in salons isn't technical — it's handoff confusion. When the AI can't handle a query and silently drops it (instead of flagging it to a human and telling the customer they'll hear back), trust collapses fast.</p>
-      <p>The fix is simple: every AI flow needs a clear escalation path. "I'll have someone from the team follow up with you within 2 hours" is a better response than an AI attempting to answer something it shouldn't and getting it wrong.</p>
-      <blockquote>Clients don't mind talking to an AI for bookings. They mind when the AI pretends to know things it doesn't.</blockquote>
-      <h2>Getting WhatsApp Business API access</h2>
-      <p>The main barrier for salons deploying WhatsApp AI is that the WhatsApp Business API requires Meta Business Manager approval — a process that can take 3–10 days and requires a verified business. ZAIMAH Technologies handles this onboarding process as part of the funnl setup.</p>
-    `,
-  },
+const posts: BlogPost[] = [
   {
     slug: "uae-ai-vision-2031-what-it-means-for-your-business",
     title: "UAE AI Vision 2031: What It Actually Means for Your Business",
     excerpt:
       "Beyond the government headlines, the UAE AI Vision 2031 has concrete implications for how businesses here procure, deploy, and report on AI. Here's what matters.",
-    date: "2026-04-22",
+    category: "Policy & Strategy",
+    date: "April 22, 2026",
     readTime: "6 min read",
-    tag: "Policy & Strategy",
     contentHtml: `
       <h2>What is UAE AI Vision 2031?</h2>
-      <p>The UAE's AI Strategy — commonly referenced as UAE AI Vision 2031 — is a national roadmap to make the UAE one of the world's most AI-ready countries by 2031. It spans government services, healthcare, education, transport, energy, and the private sector. The headline target: AI to contribute AED 335 billion to the UAE economy by 2031, representing around 13.6% of GDP.</p>
-      <p>For most businesses, AI Vision 2031 reads as a government aspiration. But there are direct and concrete implications for how businesses operate — particularly around procurement, compliance, and competitive positioning.</p>
-      <h2>What changed recently</h2>
-      <p>Several developments in 2025–2026 made AI Vision 2031 more than a strategy document:</p>
-      <ul>
-        <li><strong>DIFC AI Governance Framework:</strong> Published in late 2025, this framework establishes accountability requirements for AI systems used in financial services — with principles that are being adopted more broadly across sectors.</li>
-        <li><strong>TDRA AI Guidelines for Telecoms:</strong> Affecting how AI is used in customer communications — relevant for any business using WhatsApp, SMS, or voice AI.</li>
-        <li><strong>Emirates Data Office personal data rules:</strong> Alignment with UAE PDPA creates data handling requirements for any business collecting and processing customer data with AI.</li>
-        <li><strong>Government AI procurement preference:</strong> Federal and emirate-level entities now have formal preferences for UAE-registered AI suppliers in procurement processes.</li>
-      </ul>
-      <h2>What this means for SMEs specifically</h2>
-      <p>The compliance layer is real but not onerous for most SMEs. If you're deploying AI for customer communication (WhatsApp bots, email automation), you need to:</p>
-      <ul>
-        <li>Disclose to customers when they're interacting with an AI system</li>
-        <li>Maintain data residency for UAE customer data (most major cloud providers now have UAE regions)</li>
-        <li>Have a process for customers to request human review of AI-made decisions</li>
-        <li>Keep records of AI system outputs for audit purposes (retention requirements vary by sector)</li>
-      </ul>
-      <p>None of these are particularly burdensome for a well-configured system. The issue arises when businesses deploy AI tools without thinking through data handling — using a US-only SaaS tool, for instance, that routes all conversation data through servers outside the UAE.</p>
-      <h2>The competitive opportunity</h2>
-      <p>The more interesting angle for businesses is not compliance — it's positioning. As AI becomes mainstream in UAE commerce, businesses that adopted early have a compounding advantage: better training data, more refined workflows, and staff who are genuinely AI-fluent rather than scrambling to adapt.</p>
-      <p>Sectors where this is most visible: real estate (AI-driven lead qualification is now table stakes for serious agencies), hospitality (AI concierge services), healthcare (appointment and triaging automation), and retail (inventory and demand forecasting).</p>
-      <blockquote>By 2027, asking whether a UAE SME uses AI for customer communication will feel like asking whether they have a website. The question will be which AI and how well.</blockquote>
+      <p>The UAE National AI Strategy 2031 is the government's plan to make the UAE a global leader in artificial intelligence by 2031. The headline target: AI contributing 13.6% of GDP — approximately AED 335 billion — within five years.</p>
+      <p>To get there, the government is investing in AI infrastructure, regulation, talent, and adoption across every sector: healthcare, education, transport, finance, and retail. For business owners and operators in the UAE, this isn't background noise — it's a structural shift in how the market will operate.</p>
+
+      <h2>What this means practically for UAE businesses</h2>
+
+      <h3>1. Regulatory environment is actively AI-friendly</h3>
+      <p>Unlike many markets where AI regulation is restrictive or unclear, the UAE is building a framework that encourages adoption. The AI regulatory sandbox allows businesses to test AI applications with reduced compliance friction. This means lower risk when adopting AI tools compared to European or heavily regulated markets — a genuine competitive advantage for UAE-based businesses.</p>
+
+      <h3>2. Government procurement is shifting toward AI-enabled suppliers</h3>
+      <p>If your business sells to government entities or large UAE enterprises, AI capability is becoming a procurement requirement rather than a differentiator. Tenders are increasingly asking vendors to demonstrate AI-enabled operations, reporting, and efficiency. Businesses without this will find themselves excluded from a growing portion of UAE government and enterprise spend.</p>
+
+      <h3>3. Talent expectations are changing fast</h3>
+      <p>UAE professionals — particularly in tech, finance, and professional services — increasingly expect the businesses they work for to use modern AI tools. Companies still running fully manual operations find it harder to attract and retain top talent in a market where AI-native competitors are hiring aggressively.</p>
+
+      <h3>4. The cost of waiting compounds</h3>
+      <p>An AI-enabled customer acquisition system built and refined over 5 years will outperform one adopted in 2030 by orders of magnitude. The businesses that will lead in 2031 are adopting AI in 2026 — not because they have to yet, but because the competitive advantage compounds over time.</p>
+
       <h2>Where to start</h2>
-      <p>ZAIMAH Technologies' approach for clients navigating AI Vision 2031 is to start with the highest-ROI, lowest-compliance-risk use case — usually WhatsApp booking automation — and build from there. This creates a foundation of real operational experience with AI before tackling more complex deployments.</p>
-      <p>The goal isn't to be an "AI company" for the sake of it. It's to identify where AI removes friction from how your business actually operates — and deploy there first.</p>
+      <p>The most effective entry point for most UAE SMEs is automating their highest-volume, most repetitive customer-facing workflow — usually lead qualification, appointment booking, or customer follow-up. These deliver measurable ROI within weeks and build the internal capability for broader AI adoption.</p>
+      <p>At ZAIMAH Technologies, everything we build — funnl, SprintX, and our consulting practice — is designed to help UAE businesses take practical AI steps today that compound into structural advantages by 2031. <a href="/#contact" style="color:var(--indigo)">Talk to us</a> about where AI fits in your business right now.</p>
+    `,
+  },
+  {
+    slug: "ai-lead-qualification-dubai-real-estate",
+    title: "How Dubai Real Estate Agencies Are Using AI to Qualify Leads Faster",
+    excerpt:
+      "Dubai's property market moves fast. Agents who respond to enquiries within 5 minutes convert at 8x the rate of those who respond in an hour. AI makes that response time automatic — here's how.",
+    category: "Case Study",
+    date: "May 14, 2026",
+    readTime: "4 min read",
+    contentHtml: `
+      <h2>The lead response problem in Dubai real estate</h2>
+      <p>Dubai property enquiries come from everywhere — Property Finder, Bayut, WhatsApp, Instagram DMs, and referrals. A busy agency handles dozens of inbound leads per day across all these channels. The problem: most of those leads go cold within hours if not followed up immediately.</p>
+      <p>Research consistently shows that responding to a property enquiry within 5 minutes delivers 8x higher conversion than responding within an hour. Yet the average response time for Dubai real estate agencies is over 2 hours — because agents are showing properties, not watching their phone.</p>
+
+      <h2>What AI qualification looks like in practice</h2>
+      <p>An AI agent deployed on WhatsApp Business handles the first conversation automatically. When a lead comes in — from any source — the agent responds within seconds and begins a structured qualification conversation:</p>
+      <ul>
+        <li>What type of property are you looking for? (apartment, villa, townhouse)</li>
+        <li>Which area or community? (Downtown, Dubai Marina, JVC, etc.)</li>
+        <li>What's your budget range?</li>
+        <li>Are you buying to live in or to invest?</li>
+        <li>Are you ready to view this week or still in early research?</li>
+      </ul>
+      <p>Within 3–4 messages, the agent has a fully qualified lead profile — budget, location preference, intent, and timeline — and has either booked a viewing or flagged the lead for a human agent to follow up on.</p>
+
+      <h2>The results</h2>
+      <p>Agencies using AI qualification on WhatsApp typically see:</p>
+      <ul>
+        <li>Response time drops from hours to under 60 seconds</li>
+        <li>30–40% more leads fully qualified before agent involvement</li>
+        <li>Agents spending time on serious buyers, not tyre-kickers</li>
+        <li>Leads that come in overnight or on weekends no longer go cold</li>
+      </ul>
+
+      <h2>The Dubai market advantage</h2>
+      <p>Dubai's real estate market has a high proportion of international buyers — investors from India, the UK, Europe, Russia, and China who may be enquiring from different time zones. An AI agent that responds at 2am Dubai time to a buyer in London is converting leads that would otherwise be lost entirely.</p>
+      <p>The WhatsApp-native approach matters specifically in the UAE and GCC, where WhatsApp is the dominant communication channel for both residents and international investors browsing Dubai property.</p>
+
+      <h2>How funnl handles real estate lead qualification</h2>
+      <p>funnl's AI agent — Sarah — is configured specifically for the real estate sector. She qualifies leads, captures property preferences, schedules viewings against agent availability, and sends automated reminders — all through WhatsApp, with zero agent involvement until a viewing is confirmed.</p>
+      <p><a href="https://funnl.zaimahtech.ae" style="color:var(--indigo)">Try funnl free</a> or <a href="/#contact" style="color:var(--indigo)">get in touch</a> to see a live demo for your agency.</p>
+    `,
+  },
+  {
+    slug: "ai-for-uae-smes-2026",
+    title: "AI for UAE SMEs in 2026: What's Actually Working",
+    excerpt:
+      "Most AI hype is aimed at enterprises. Here's what small and medium businesses in the UAE are deploying today — and the honest ROI numbers behind each use case.",
+    category: "AI Strategy",
+    date: "June 1, 2026",
+    readTime: "5 min read",
+    contentHtml: `
+      <h2>The opportunity is real — but most UAE SMEs are sitting it out</h2>
+      <p>The UAE National AI Strategy 2031 isn't just a government vision document. It's a signal that the country's infrastructure, regulations, and investment flows are all moving in one direction: AI-first. Businesses that adopt early don't just get efficiency gains — they get a structural advantage over competitors still operating manually.</p>
+      <p>Yet when you talk to SME owners across Dubai and the UAE, the most common response to "AI" is either confusion or overambition. Either they don't know where to start, or they're being sold enterprise-grade AI platforms that cost more than their annual marketing budget.</p>
+      <p>The truth is simpler: the highest-impact AI moves for UAE SMEs in 2026 are narrow, practical, and already proven.</p>
+
+      <h2>1. Automate customer acquisition — starting with WhatsApp</h2>
+      <p>WhatsApp is where UAE customers actually are. Over 80% of UAE residents use it daily. Yet most businesses still have a human manually responding to every enquiry, qualifying every lead, and booking every appointment.</p>
+      <p>A well-configured WhatsApp AI agent can respond to leads within seconds, qualify and book appointments automatically, send reminders, and handle reschedules — all without human input. Businesses using funnl have seen 40%+ increases in confirmed appointments simply because leads stop falling through the cracks overnight and on weekends.</p>
+
+      <h2>2. Use AI to compress software delivery timelines</h2>
+      <p>AI-powered development platforms like SprintX can take a natural language feature description and run it through a complete pipeline: product requirements, architecture, code, tests, security review, and a GitHub PR — without a developer writing a line of code. For UAE businesses building technology products, this compresses weeks of sprint cycles into hours.</p>
+
+      <h2>3. Start with one workflow, not a transformation</h2>
+      <p>The most common AI mistake UAE SMEs make is trying to transform everything at once. Start with your highest-volume, most repetitive workflow and make it work completely before expanding. For a salon that's booking. For real estate that's lead qualification. For a clinic that's patient intake.</p>
+
+      <h2>4. Your data is already an asset</h2>
+      <p>Most UAE SMEs are sitting on months of customer data in WhatsApp chats, spreadsheets, and CRM systems and doing nothing with it. AI can turn that into customer segments, churn signals, demand patterns, and targeted content — without a data science team.</p>
+
+      <h2>The bottom line</h2>
+      <p>Start with WhatsApp automation. Add AI to your delivery pipeline. Use your existing data. Those three moves alone put you ahead of 80% of UAE SMEs in 2026. <a href="/#contact" style="color:var(--indigo)">Get in touch</a> to talk through what this looks like for your specific business.</p>
     `,
   },
 ];
 
 export function getAllPosts(): BlogPost[] {
-  return POSTS.slice().sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  return posts;
 }
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return POSTS.find((p) => p.slug === slug);
+  return posts.find((p) => p.slug === slug);
 }
 
 export function getAllSlugs(): string[] {
-  return POSTS.map((p) => p.slug);
+  return posts.map((p) => p.slug);
 }
